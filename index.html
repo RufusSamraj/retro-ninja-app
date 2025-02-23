@@ -1,19 +1,40 @@
+<!-- Updated index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script defer src="main.js"></script>
-    <title>Document</title>
+    <title>Stick Hero Game</title>
 </head>
 <body>
     <div class="container">
         <div id="score"></div>
         <canvas id="game" width="375" height="375"></canvas>
-        <div id="introduction">Hold down the mouse to stretch out a stick</div>
-        <div id="perfect">DOUBLE SCORE</div>
-        <button id="restart">RESTART</button>
-      </div>
+        
+        <div id="menu-screen">
+            <button id="introduction">Hold</button>
+            <button id="sso-login">Login with Google</button>
+            <button id="scoreboard">Scoreboard</button>
+        </div>
+
+        <div id="after-play">
+            <!-- <div id="introduction">Hold down the mouse to stretch out a stick</div> -->
+            <div id="perfect">DOUBLE SCORE</div>
+            <button id="restart">RESTART</button>
+        </div>
+    </div>
+    
+    <div id="profile-container" style="display:none;">
+        <img id="profile-pic" src="" alt="Profile" />
+    </div>
+    
+    <div id="scoreboard-screen" style="display:none;">
+        <h2>Scoreboard</h2>
+        <ul id="score-list"></ul>
+        <button id="close-scoreboard">Close</button>
+    </div>
 </body>
 </html>

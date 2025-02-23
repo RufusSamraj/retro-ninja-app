@@ -62,8 +62,105 @@ const perfectElement = document.getElementById("perfect");
 const restartButton = document.getElementById("restart");
 const scoreElement = document.getElementById("score");
 
+const playButton = document.getElementById("play");
+
 // Initialize layout
 resetGame();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const playButton = document.getElementById("play");
+  const ssoLoginButton = document.getElementById("sso-login");
+  const scoreboardButton = document.getElementById("scoreboard");
+  const closeScoreboardButton = document.getElementById("close-scoreboard");
+  const profileContainer = document.getElementById("profile-container");
+  const profilePic = document.getElementById("profile-pic");
+  const scoreboardScreen = document.getElementById("scoreboard-screen");
+  const scoreList = document.getElementById("score-list");
+
+  playButton.addEventListener("click", () => {
+      document.getElementById("menu-screen").style.display = "none";
+      resetGame();
+  });
+
+  ssoLoginButton.addEventListener("click", handleGoogleSignIn);
+
+  scoreboardButton.addEventListener("click", () => {
+      scoreboardScreen.style.display = "block";
+      loadScores();
+  });
+
+  closeScoreboardButton.addEventListener("click", () => {
+      scoreboardScreen.style.display = "none";
+  });
+});
+
+function handleGoogleSignIn() {
+  google.accounts.oauth2.initTokenClient({
+      client_id: "5857168653-s18n2ftavd34iavufi3j6u50a2govrjo.apps.googleusercontent.com",
+      scope: "email profile openid",
+      callback: (response) => {
+          if (response.access_token) {
+              fetchUserInfo(response.access_token);
+          }
+      },
+  }).requestAccessToken();
+}
+
+function fetchUserInfo(accessToken) {
+  fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${accessToken}` }
+  })
+  .then(response => response.json())
+  .then(user => {
+      profileContainer.style.display = "block";
+      profilePic.src = user.picture;
+  })
+  .catch(console.error);
+}
+
+function loadScores() {
+  const scores = JSON.parse(localStorage.getItem("scores")) || [];
+  scoreList.innerHTML = scores.map(score => `<li>${score}</li>`).join("");
+}
+
+function saveScore(score) {
+  const scores = JSON.parse(localStorage.getItem("scores")) || [];
+  scores.push(score);
+  localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const ssoLoginButton = document.getElementById("sso-login");
+
+  if (ssoLoginButton) {
+      ssoLoginButton.addEventListener("click", handleGoogleSignIn);
+  }
+});
+
+// function handleGoogleSignIn() {
+//   google.accounts.oauth2.initTokenClient({
+//       client_id: "5857168653-s18n2ftavd34iavufi3j6u50a2govrjo.apps.googleusercontent.com", // Replace with your actual Client ID
+//       scope: "email profile openid",
+//       callback: (response) => {
+//           if (response.access_token) {
+//               fetchUserInfo(response.access_token);
+//           }
+//       },
+//   }).requestAccessToken();
+// }
+
+// function fetchUserInfo(accessToken) {
+//   fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+//       headers: { Authorization: `Bearer ${accessToken}` }
+//   })
+//   .then(response => response.json())
+//   .then(user => {
+//       console.log("User Info:", user);
+//       alert(`Welcome, ${user.name}!`);
+//       // Use user data in your game logic (e.g., save session, show avatar, etc.)
+//   })
+//   .catch(console.error);
+// }
 
 // Resets game variables and layouts but does not start the game (game starts on keypress)
 function resetGame() {

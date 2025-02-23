@@ -1,10 +1,8 @@
-html,
-body {
+/* Updated style.css */
+
+html, body {
   height: 100%;
   margin: 0;
-}
-
-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
 }
@@ -14,44 +12,58 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-direction: column;
 }
 
-#score {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 2em;
-  font-weight: 900;
+#menu-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
-#introduction {
-  width: 200px;
-  height: 150px;
-  position: absolute;
-  font-weight: 600;
-  font-size: 0.8em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  transition: opacity 2s;
-}
-
-#restart {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  border-radius: 50%;
-  color: white;
-  background-color: red;
-  border: none;
-  font-weight: 700;
-  font-size: 1.2em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: none;
+button {
+  padding: 10px 20px;
+  font-size: 1em;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: white;
 }
 
-#perfect {
+#profile-container {
   position: absolute;
-  opacity: 0;
-  transition: opacity 2s;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#scoreboard-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#score-list {
+  list-style: none;
+  padding: 0;
+}
+
+#score-list li {
+  font-size: 1.2em;
+  margin: 5px 0;
 }
